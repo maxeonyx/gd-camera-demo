@@ -1,39 +1,24 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
-[ext_resource path="res://CameraFollow.gd" type="Script" id=4]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://player.material.tres" type="Material" id=4]
 [ext_resource path="res://box.material.tres" type="Material" id=5]
-[ext_resource path="res://keys/Keyboard_White_Esc.png" type="Texture" id=7]
-[ext_resource path="res://UI.gd" type="Script" id=8]
+[ext_resource path="res://Sunlight.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ramp.material.tres" type="Material" id=9]
-[ext_resource path="res://keys/Keyboard_White_D.png" type="Texture" id=10]
-[ext_resource path="res://keys/Keyboard_White_W.png" type="Texture" id=11]
-[ext_resource path="res://keys/Keyboard_White_S.png" type="Texture" id=12]
-[ext_resource path="res://keys/Keyboard_White_A.png" type="Texture" id=13]
-[ext_resource path="res://keys/Keyboard_White_Space.png" type="Texture" id=14]
 
-[sub_resource type="CubeMesh" id=10]
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.4
 
-[sub_resource type="PackedScene" id=11]
-_bundled = {
-"conn_count": 0,
-"conns": PoolIntArray(  ),
-"editable_instances": [  ],
-"names": PoolStringArray( "Box4", "MeshInstance", "transform", "layers", "material_override", "cast_shadow", "extra_cull_margin", "use_in_baked_light", "lod_min_distance", "lod_min_hysteresis", "lod_max_distance", "lod_max_hysteresis", "mesh", "skeleton", "material/0" ),
-"node_count": 1,
-"node_paths": [  ],
-"nodes": PoolIntArray( -1, -1, 1, 0, -1, 13, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 9, 7, 10, 8, 11, 9, 12, 10, 13, 11, 14, 12, 0 ),
-"variants": [ Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 14, -2, 3 ), 1, null, 1, 0.0, false, 0.0, 0.0, 0.0, 0.0, SubResource( 10 ), NodePath(".."), null ],
-"version": 2
-}
-
-[sub_resource type="CapsuleShape" id=2]
-radius = 0.49363
+[sub_resource type="CapsuleMesh" id=2]
+radius = 0.4
 
 [sub_resource type="PlaneMesh" id=3]
+size = Vector2( 40, 40 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 20, 1, 20 )
 
 [sub_resource type="CubeMesh" id=5]
 size = Vector3( 7.857, 2.7, 4.373 )
@@ -47,110 +32,42 @@ extents = Vector3( 3.93115, 1.3519, 2.19348 )
 
 [sub_resource type="BoxShape" id=9]
 
+[sub_resource type="CubeMesh" id=10]
+
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
 
-[node name="UI" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Keyboard_White_Esc" type="Sprite" parent="UI"]
-position = Vector2( 37.2597, 34.8444 )
-scale = Vector2( 0.702089, 0.702089 )
-texture = ExtResource( 7 )
-
-[node name="Keyboard_White_Esc3" type="Sprite" parent="UI"]
-position = Vector2( 30.2177, 124.19 )
-scale = Vector2( 0.702089, 0.702089 )
-texture = ExtResource( 13 )
-
-[node name="Keyboard_White_Esc5" type="Sprite" parent="UI"]
-position = Vector2( 104.159, 124.19 )
-scale = Vector2( 0.702089, 0.702089 )
-texture = ExtResource( 10 )
-
-[node name="Keyboard_White_Esc2" type="Sprite" parent="UI"]
-position = Vector2( 67.1884, 89.4202 )
-scale = Vector2( 0.702089, 0.702089 )
-texture = ExtResource( 11 )
-
-[node name="Keyboard_White_Esc4" type="Sprite" parent="UI"]
-position = Vector2( 67.1883, 124.63 )
-scale = Vector2( 0.702089, 0.702089 )
-texture = ExtResource( 12 )
-
-[node name="Label" type="Label" parent="UI"]
-margin_left = 68.6356
-margin_top = 36.5949
-margin_right = 218.636
-margin_bottom = 50.5949
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "to quit."
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label2" type="Label" parent="UI"]
-margin_left = 135.975
-margin_top = 123.74
-margin_right = 285.975
-margin_bottom = 137.74
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "to move."
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label3" type="Label" parent="UI"]
-margin_left = 87.677
-margin_top = 178.791
-margin_right = 237.677
-margin_bottom = 192.791
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "to jump."
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="UI" parent="." instance=ExtResource( 3 )]
 
 [node name="Player" type="KinematicBody" parent="."]
 script = ExtResource( 2 )
-bullet = SubResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.427709, 0 )
-shape = SubResource( 2 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.9, 0 )
+shape = SubResource( 1 )
 
-[node name="CameraFollower" type="Spatial" parent="."]
-script = ExtResource( 4 )
+[node name="Camera" type="Camera" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
 
-[node name="YRotation" type="Spatial" parent="CameraFollower"]
+[node name="MeshInstance" type="MeshInstance" parent="Player"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.9, 0 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 4 )
 
-[node name="XRotation" type="Spatial" parent="CameraFollower/YRotation"]
-
-[node name="Camera" type="Camera" parent="CameraFollower/YRotation/XRotation"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.722584, -0.676586 )
-
-[node name="Obstacles" type="Node" parent="."]
+[node name="Obstacles" type="Spatial" parent="."]
 
 [node name="Floor" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 41.69, 0, 0, 0, 0.7, 0, 0, 0, 38.6781, 0, -1.6, -1 )
 mesh = SubResource( 3 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Obstacles/Floor"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Obstacles/Floor/StaticBody"]
-shape = SubResource( 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 11 )
 
 [node name="Ramp" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 0.916663, 1.98567, -0.105197, 0, 1.35556, 0.964737, 0.399661, -4.55434, 0.241281, -3.55929, -1.90747, -13.3123 )
+transform = Transform( 0.916663, 1.98567, -0.105197, 0, 1.35556, 0.964737, 0.399661, -4.55434, 0.241281, -3.55929, -0.981342, -13.3123 )
 mesh = SubResource( 5 )
 material/0 = ExtResource( 9 )
 
@@ -161,7 +78,7 @@ transform = Transform( 1, -1.19209e-07, 1.49012e-08, 7.45058e-09, 1, -3.72529e-0
 shape = SubResource( 6 )
 
 [node name="Box1" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, -7, -2, 0 )
+transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, -7, -0.944049, 0 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 5 )
 
@@ -171,7 +88,7 @@ material/0 = ExtResource( 5 )
 shape = SubResource( 8 )
 
 [node name="Box5" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 16.5397, -2, -22.2446 )
+transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 16.5397, 0.786747, -22.2446 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 5 )
 
@@ -181,7 +98,7 @@ material/0 = ExtResource( 5 )
 shape = SubResource( 9 )
 
 [node name="Box8" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 20.2524, -4.45266, -19.7434 )
+transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 20.2524, -3.69455, -19.7434 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 5 )
 
@@ -191,7 +108,7 @@ material/0 = ExtResource( 5 )
 shape = SubResource( 9 )
 
 [node name="Box9" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 16.9314, -4.45266, -32.4797 )
+transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 16.9314, -1.91707, -32.4797 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 5 )
 
@@ -201,7 +118,7 @@ material/0 = ExtResource( 5 )
 shape = SubResource( 9 )
 
 [node name="Box6" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, -30.3219, -2, 29.203 )
+transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, -30.3219, 1.21557, 29.203 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 5 )
 
@@ -211,7 +128,7 @@ material/0 = ExtResource( 5 )
 shape = SubResource( 9 )
 
 [node name="Box7" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, -29.8496, -5.03252, 25.6753 )
+transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, -29.8496, -2.83424, 25.6753 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 5 )
 
@@ -231,7 +148,7 @@ material/0 = ExtResource( 5 )
 shape = SubResource( 9 )
 
 [node name="Box3" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 8, -4, 3 )
+transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 8, -0.279161, 3 )
 mesh = SubResource( 7 )
 material/0 = ExtResource( 5 )
 
@@ -241,7 +158,7 @@ material/0 = ExtResource( 5 )
 shape = SubResource( 9 )
 
 [node name="Box4" type="MeshInstance" parent="Obstacles"]
-transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 14, -2, 3 )
+transform = Transform( 1, 0, 0, 0, 5.15, 0, 0, 0, 1, 14, 3.86048, 3 )
 mesh = SubResource( 10 )
 material/0 = ExtResource( 5 )
 
@@ -250,14 +167,4 @@ material/0 = ExtResource( 5 )
 [node name="CollisionShape" type="CollisionShape" parent="Obstacles/Box4/StaticBody8"]
 shape = SubResource( 9 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.190775, 0.44695, -0.87398, 0, 0.890332, 0.455312, 0.981634, -0.086862, 0.169853, 0, 11.7042, 0 )
-light_color = Color( 1, 0.94902, 0.682353, 1 )
-shadow_enabled = true
-
-[node name="Keyboard_White_Space" type="Sprite" parent="."]
-position = Vector2( 45.8694, 183.322 )
-scale = Vector2( 0.789259, 0.789259 )
-texture = ExtResource( 14 )
-[connection signal="update_position" from="Player" to="." method="_on_Player_update_position"]
-[connection signal="update_angle" from="CameraFollower" to="." method="_on_Spatial_update_angle"]
+[node name="Sunlight" parent="." instance=ExtResource( 6 )]

@@ -1,9 +1,9 @@
 extends KinematicBody
 
 export(float) var speed = 5.0
-export(PackedScene) var bullet
-
-signal update_position
+export(float) var jump_height = 5.0
+export(float) var mouse_x_gain = .007
+export(float) var mouse_y_gain = .005
 
 # gravity is a constant: 20 feet per second per second
 var gravity = 20
@@ -11,22 +11,16 @@ var gravity = 20
 # player is falling.
 var vertical_velocity = 0
 
+func _ready():
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 func _physics_process(delta):
-    var movement = Vector3(0, 0, 0)
-    
     var camera_angle = get_node("/root/Game").get_camera_angle()
     
-    if Input.is_key_pressed(KEY_W):
-        movement += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), camera_angle)
-        
-    if Input.is_key_pressed(KEY_S):
-        movement += Vector3(0, 0, 1).rotated(Vector3(0, 1, 0), camera_angle)
-        
-    if Input.is_key_pressed(KEY_D):
-        movement += Vector3(1, 0, 0).rotated(Vector3(0, 1, 0), camera_angle)
-        
-    if Input.is_key_pressed(KEY_A):
-        movement += Vector3(-1, 0, 0).rotated(Vector3(0, 1, 0), camera_angle)
+    var forward_movement = Input.get_action_strength("forward") - Input.get_action_strength("back")
+    var rightward_movement = Input.get_action_strength("right") - Input.get_action_strength("left")
+    # Forward is the negative z direction, this comes from OpenGL camera conventions.
+    var movement = Vector3(rightward_movement, 0, -forward_movement).rotated(Vector3(0, 1, 0), rotation.y)
     
     # this line makes diagonal movement the same speed as forward and sideways
     movement = movement.normalized()
@@ -48,7 +42,21 @@ func _physics_process(delta):
         if is_on_floor():
             # jumping is just an immediate boost to vertical velocity
             vertical_velocity += 20
+
+# Move the camera angle with the mouse
+func _input(event):
+    if event is InputEventMouseMotion:
+        var motion = event.relative
+        
+        rotate(Vector3(0, 1, 0), -motion.x * mouse_x_gain)
+        $Camera.rotate(Vector3(1, 0, 0), -motion.y * mouse_y_gain)
+        if $Camera.rotation.x < -TAU/4:
+            $Camera.rotation.x = -TAU/4
+        elif $Camera.rotation.x > TAU/4:
+            $Camera.rotation.x = TAU/4
     
-    emit_signal("update_position", translation)
-
-
+    if event.is_action_pressed("quit"):
+        if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+        else:
+            get_tree().quit()
